@@ -1,10 +1,9 @@
 .post {
+  display: flex;
+  justify-content: space-between;
   height: 110px;
   border-radius: 6px;
   border: 1.5px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
   opacity: 1;
   transition: opacity ease 200ms;
   &:hover {
@@ -12,8 +11,10 @@
   }
   &-info {
     padding: 1rem 2rem;
-    display: grid;
-    place-content: center;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
     time {
       font-size: 0.8em;
     }
@@ -26,9 +27,5 @@
     padding: 1rem 2rem;
     background: hsla(0, 0%, 38%, 0.1);
     border: 0;
-    figure {
-      display: inline-flex;
-      height: 100%;
-    }
   }
 }
