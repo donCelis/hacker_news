@@ -1,0 +1,25 @@
+.btn-tab {
+  display: inline-block;
+  border: 1px solid var(--sec-color);
+  padding: 0.25rem;
+  min-width: 6.4rem;
+  text-align: center;
+  opacity: 0.6;
+  transition: opacity ease 200ms;
+  &:hover {
+    opacity: 1;
+  }
+  &.active {
+    opacity: 1;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+  }
+  &:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+  }
+  &:last-child {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  }
+}
