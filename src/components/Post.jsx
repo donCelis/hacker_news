@@ -3,25 +3,25 @@ import "../styles/components/_post.scss";
 import icon_time from "../assets/icon-time.svg";
 import icon_favorite_border from "../assets/icon-favorite-border.svg";
 
-const Post = () => {
+const Post = ({ author, story_title, story_url, created_at }) => {
   return (
     <article className="post">
-      <section className="post-info">
+      <a target="_blank" href={story_url} className="post-info">
         <span className="d-flex align-items-center">
           <figure className="d-inline-flex me-2">
             <img src={icon_time} alt="icon time" />
           </figure>
-          <time>3 hours ago by author</time>
+          <time>
+            {created_at} {author}
+          </time>
         </span>
-        <p>
-          Yes, React is taking over front-end development. The question is why.
-        </p>
-      </section>
-      <aside className="post-icon">
+        <p>{story_title}</p>
+      </a>
+      <button className="post-icon">
         <figure>
           <img src={icon_favorite_border} alt="icon favorite" />
         </figure>
-      </aside>
+      </button>
     </article>
   );
 };
