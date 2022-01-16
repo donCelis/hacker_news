@@ -3,9 +3,12 @@ import { PostsContext } from "../context/PostsContext";
 
 const Select = () => {
   const { currentSelect, setCurrentSelect } = useContext(PostsContext);
+
+  //change select
   const handleSelect = (ev) => {
-    setCurrentSelect(ev.target.value)
-    localStorage.hackerNewsCurrentSelect = ev.target.value
+    let targetValue = ev.target.value;
+    setCurrentSelect(targetValue);
+    localStorage.hackerNewsCurrentSelect = targetValue;
   };
   return (
     <div className="container">

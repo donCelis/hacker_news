@@ -3,33 +3,37 @@ import { createContext, useState, useEffect } from "react";
 export const PostsContext = createContext({});
 
 export const ContextProvider = ({ children }) => {
+  /* Select */
   const [currentSelect, setCurrentSelect] = useState("");
+
+  /* Favs */
   const [favs, setFavs] = useState([]);
 
   const addPostsToFavs = (post) => {
     setFavs((state) => {
-      const newArr = [...state, post];
-      localStorage.hackerNewsFavs = JSON.stringify(newArr);
-      return newArr;
+      const newPostsFavs = [...state, post];
+      localStorage.hackerNewsFavs = JSON.stringify(newPostsFavs);
+      return newPostsFavs;
     });
   };
 
   const removePostsFromFavs = (id) => {
     setFavs((state) => {
-      const newArr = state.filter((post) => post.story_id !== id);
-      localStorage.hackerNewsFavs = JSON.stringify(newArr);
-      return newArr;
+      const filterPost = state.filter((post) => post.story_id !== id);
+      localStorage.hackerNewsFavs = JSON.stringify(filterPost);
+      return filterPost;
     });
   };
 
+  /* Posts */
   const [dashboardPosts, setDashboardPosts] = useState([]);
 
   const addPostsToDashboard = (posts) => {
     const filterPosts = posts.filter(({ story_title }) => story_title !== null);
 
     setDashboardPosts((state) => {
-      const newArr = [...state, ...filterPosts];
-      return newArr;
+      const finalPosts = [...state, ...filterPosts];
+      return finalPosts;
     });
   };
 
@@ -45,6 +49,7 @@ export const ContextProvider = ({ children }) => {
   }, []);
 
   const initialState = {
+    /* select */
     currentSelect,
     setCurrentSelect,
     /* favs */

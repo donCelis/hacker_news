@@ -7,36 +7,26 @@ import icon_time from "../assets/icon-time.svg";
 import icon_favorite_border from "../assets/icon-favorite-border.svg";
 import icon_favorite_fill from "../assets/icon-favorite-fill.svg";
 
-const Post = ({
-  author,
-  story_title,
-  story_url,
-  created_at,
-  story_id,
-  objectID,
-}) => {
+const Post = ({ ...props }) => {
+  let { author, story_title, story_url, created_at, story_id } = props;
+
+  //store
   const { favs, addPostsToFavs, removePostsFromFavs } =
     useContext(PostsContext);
 
   const [isFav, setIsFav] = useState(false);
 
+  //verify state to fav
   useEffect(() => {
     const state = favs.find((fav) => fav.story_id === story_id);
     setIsFav(state);
   }, []);
 
+  //fuction add like or remove like
   const handleChangeFavs = (story_id) => {
     isFav
       ? (removePostsFromFavs(story_id), setIsFav(false))
-      : (addPostsToFavs({
-          author,
-          story_title,
-          story_url,
-          created_at,
-          story_id,
-          objectID,
-        }),
-        setIsFav(true));
+      : (addPostsToFavs(props), setIsFav(true));
   };
 
   return (
@@ -51,18 +41,17 @@ const Post = ({
             <img src={icon_time} alt="icon time" />
           </figure>
           <time>
-            {created_at} {author}
+            {created_at} - {author}
           </time>
         </small>
         <p>{story_title}</p>
       </a>
       <button className="post-icon" onClick={() => handleChangeFavs(story_id)}>
         <figure>
-          {isFav ? (
-            <img src={icon_favorite_fill} alt="icon favorite" />
-          ) : (
-            <img src={icon_favorite_border} alt="icon favorite" />
-          )}
+          <img
+            src={isFav ? icon_favorite_fill : icon_favorite_border}
+            alt="icon favorite"
+          />
         </figure>
       </button>
     </article>
