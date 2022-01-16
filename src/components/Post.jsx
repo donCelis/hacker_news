@@ -40,8 +40,8 @@ const Post = ({ ...props }) => {
           <figure className="d-inline-flex me-2">
             <img src={icon_time} alt="icon time" />
           </figure>
-          <time>
-            {created_at} - {author}
+          <time dateTime={created_at}>
+            {created_at} by {author}
           </time>
         </small>
         <p>{story_title}</p>

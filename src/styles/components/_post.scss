@@ -1,28 +1,35 @@
 .post {
   display: flex;
   justify-content: space-between;
-  height: 6.8rem;
+  align-items: stretch;
+  height: 7rem;
   border-radius: 6px;
-  border: 1.5px solid var(--border-color);
+  border: 1.6px solid var(--border-color);
   opacity: 1;
   transition: opacity ease 200ms;
+  overflow: hidden;
   &:hover {
     opacity: 0.5;
   }
   &-info {
-    padding: 1rem 2rem;
+    padding: 0rem 1.6rem;
     width: 100%;
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
+    time {
+      color: hsl(0, 0%, 46%);
+    }
     p {
       margin: 0;
       margin-top: 0.4rem;
+      color: hsl(0, 0%, 38%);
+      font-weight: 500;
     }
   }
   &-icon {
-    padding: 1rem 2rem;
-    background: hsla(0, 0%, 38%, 0.1);
+    display: inline-block;
+    padding: 0rem 1.6rem;
     border: 0;
   }
 }

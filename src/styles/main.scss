@@ -1,12 +1,13 @@
 //variables
 :root {
   --font-logo: "Baskerville", serif;
+  --font-text: "Roboto", sans-serif;
   --main-color: hsl(207, 100%, 55%);
   --sec-color: hsl(0, 0%, 23%);
 
   --box-shadow: 0 1px 5px 0 hsla(209, 100%, 8%, 0.1);
   --border-radius: 4px;
-  --border-color: hsl(0, 0%, 59%);
+  --border-color: hsla(0, 0%, 59%, 0.5);
 }
 
 /* Reset styles */
@@ -18,6 +19,9 @@
 html,
 body {
   padding: 0;
+}
+body {
+  font-family: var(--font-text);
 }
 h1,
 h2,
