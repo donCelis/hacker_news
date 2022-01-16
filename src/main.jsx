@@ -8,13 +8,13 @@ import "./styles/main.scss";
 //components
 import Header from "./components/Header";
 
-import App from "./components/App";
+import Routes from "./routes";
 
 ReactDOM.render(
   <React.StrictMode>
     <>
-    <Header />
-    <App />
+      <Header />
+      <Routes />
     </>
   </React.StrictMode>,
   document.getElementById("root")

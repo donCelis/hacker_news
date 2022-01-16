@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import { PostsContext } from "../context/PostsContext";
 import { getPosts } from "../services/getPosts";
-import Post from "./Post";
+import Select from "../components/Select";
+import Post from "../components/Post";
 
 const Blog = () => {
   const {
     currentSelect,
-    setCurrentSelect,
     dashboardPosts,
     setDashboardPosts,
     addPostsToDashboard,
@@ -20,7 +20,7 @@ const Blog = () => {
       const { hits } = await getPosts(currentSelect);
       addPostsToDashboard(hits);
     };
-    data();
+    if (dashboardPosts.length === 0) data();
   }, []);
 
   //Update fetch
@@ -46,17 +46,20 @@ const Blog = () => {
   }, [currentSelect]);
 
   return (
-    <section className="blog py-5">
-      <div className="container">
-        <ul className="row gx-5 gy-4">
-          {dashboardPosts.map((item, key) => (
-            <li key={key} className="col-md-12 col-lg-6">
-              <Post {...item} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+    <>
+      <Select />
+      <section className="blog py-5">
+        <div className="container">
+          <ul className="row gx-5 gy-4">
+            {dashboardPosts.map((item) => (
+              <li key={item.objectID} className="col-md-12 col-lg-6">
+                <Post {...item} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
   );
 };
 

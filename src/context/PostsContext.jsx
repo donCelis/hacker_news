@@ -13,10 +13,10 @@ export const ContextProvider = ({ children }) => {
       return newArr;
     });
   };
-  
+
   const removePostsFromFavs = (id) => {
     setFavs((state) => {
-      const newArr = state.filter((post) => post.id !== id);
+      const newArr = state.filter((post) => post.story_id !== id);
       localStorage.hackerNewsFavs = JSON.stringify(newArr);
       return newArr;
     });
@@ -25,9 +25,7 @@ export const ContextProvider = ({ children }) => {
   const [dashboardPosts, setDashboardPosts] = useState([]);
 
   const addPostsToDashboard = (posts) => {
-    const filterPosts = posts.filter(
-      ({ story_title, story_url }) => story_title !== null && story_url !== null
-    );
+    const filterPosts = posts.filter(({ story_title }) => story_title !== null);
 
     setDashboardPosts((state) => {
       const newArr = [...state, ...filterPosts];
@@ -40,6 +38,10 @@ export const ContextProvider = ({ children }) => {
     const currentSelect = localStorage.hackerNewsCurrentSelect;
 
     if (currentSelect) setCurrentSelect(currentSelect);
+
+    const currentFavs = localStorage.hackerNewsFavs;
+
+    if (currentFavs) setFavs(JSON.parse(currentFavs));
   }, []);
 
   const initialState = {

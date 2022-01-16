@@ -1,14 +1,16 @@
+import { NavLink } from "react-router-dom";
+
 const Tabs = () => {
   return (
     <section className="filter-tabs py-5">
       <div className="container">
         <nav className="d-flex justify-content-center">
-          <a className="btn-tab active" href="#">
+          <NavLink to="/" className="btn-tab">
             All
-          </a>
-          <a className="btn-tab" href="#">
+          </NavLink>
+          <NavLink to="/favs" className="btn-tab">
             My faves
-          </a>
+          </NavLink>
         </nav>
       </div>
     </section>

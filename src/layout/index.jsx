@@ -1,22 +1,18 @@
 import "../styles/components/_tabs.scss";
 
-import { useEffect, useContext } from "react";
 import { ContextProvider } from "../context/PostsContext";
 
-import Tabs from "./Tabs";
-import Select from "./Select";
-import Blog from "./Blog";
+import Tabs from "../components/Tabs";
 
-function App() {
+function Layout({ children }) {
   return (
     <ContextProvider>
       <main className="App">
         <Tabs />
-        <Select />
-        <Blog />
+        {children}
       </main>
     </ContextProvider>
   );
 }
 
-export default App;
+export default Layout;

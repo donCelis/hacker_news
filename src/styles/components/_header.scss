@@ -1,3 +1,10 @@
 .header-shadow {
   box-shadow: var(--box-shadow);
 }
+.logo {
+  font-family: var(--font-logo);
+  text-transform: uppercase;
+  color: var(--sec-color);
+  font-size: 1.4em;
+  font-weight: 100;
+}
