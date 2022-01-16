@@ -1,5 +1,7 @@
-.header-shadow {
-  box-shadow: var(--box-shadow);
+.header {
+  &-shadow {
+    box-shadow: var(--box-shadow);
+  }
 }
 .logo {
   font-family: var(--font-logo);
