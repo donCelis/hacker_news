@@ -11,6 +11,13 @@ const Select = () => {
     setCurrentSelect(targetValue);
     localStorage.hackerNewsCurrentSelect = targetValue;
   };
+
+  //custom select
+  const handleChangeSelect = (ev) => {
+    console.log(ev);
+    ev.target.nextSibling.classList.toggle("show");
+  };
+
   return (
     <div className="container">
       <select onChange={handleSelect} value={currentSelect}>
@@ -26,9 +33,11 @@ const Select = () => {
           id="customSelect"
           data-bs-toggle="dropdown"
           aria-expanded="false"
+          onClick={handleChangeSelect}
         >
           Select your news
         </button>
+
         <ul className="dropdown-menu" aria-labelledby="customSelect">
           <li className="dropdown-item">
             <img src={logo_react} alt="" />
