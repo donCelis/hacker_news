@@ -1,60 +1,44 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PostsContext } from "../context/PostsContext";
 import logo_react from "../assets/react-icon/image-140.png";
 
-const Select = () => {
+import Select from "react-select";
+
+const CustomSelect = () => {
   const { currentSelect, setCurrentSelect } = useContext(PostsContext);
+  //const [selectedOption, setSelectedOption] = useState(null);
+
+  const options = [
+    { value: "reactjs", label: "React Js" },
+    { value: "angular", label: "Angular" },
+    { value: "vuejs", label: "Vue Js" },
+  ];
 
   //change select
   const handleSelect = (ev) => {
-    let targetValue = ev.target.value;
-    setCurrentSelect(targetValue);
-    localStorage.hackerNewsCurrentSelect = targetValue;
-  };
-
-  //custom select
-  const handleChangeSelect = (ev) => {
-    console.log(ev);
-    ev.target.nextSibling.classList.toggle("show");
+    setCurrentSelect(ev);
+    localStorage.hackerNewsCurrentSelect = JSON.stringify(ev);
   };
 
   return (
     <div className="container">
-      <select onChange={handleSelect} value={currentSelect}>
-        <option value="">Select your news</option>
-        <option value="reactjs">ReacJs</option>
-        <option value="angular">Angular</option>
-        <option value="vuejs">VueJs</option>
-      </select>
-      <div className="dropdown">
-        <button
-          className="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="customSelect"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          onClick={handleChangeSelect}
-        >
-          Select your news
-        </button>
-
-        <ul className="dropdown-menu" aria-labelledby="customSelect">
-          <li className="dropdown-item">
-            <img src={logo_react} alt="" />
-            ReacJs
-          </li>
-          <li className="dropdown-item">
-            <img src={logo_react} alt="" />
-            Angular
-          </li>
-          <li className="dropdown-item">
-            <img src={logo_react} alt="" />
-            VueJs
-          </li>
-        </ul>
-      </div>
+      <Select
+        placeholder="Select your news"
+        value={currentSelect}
+        onChange={handleSelect}
+        options={options}
+        isSearchable={false}
+        theme={(theme) => ({
+          ...theme,
+          colors: {
+            ...theme.colors,
+            primary: "#1797ff",
+            primary25: "#eaeaea",
+          },
+        })}
+      />
     </div>
   );
 };
 
-export default Select;
+export default CustomSelect;

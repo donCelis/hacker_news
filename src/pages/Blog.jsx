@@ -2,7 +2,7 @@ import { useEffect, useState, useContext, lazy, Suspense } from "react";
 import { PostsContext } from "../context/PostsContext";
 import { getPosts } from "../services/getPosts";
 import Loading from "../components/Loading";
-import Select from "../components/Select";
+import CustomSelect from "../components/Select";
 
 const Post = lazy(() => import("../components/Post"));
 
@@ -20,8 +20,9 @@ const Blog = () => {
   //First fetch
   useEffect(() => {
     const fetchPosts = async () => {
-      const { hits } = await getPosts(currentSelect);
+      const { hits } = await getPosts(currentSelect.value);
       addPostsToDashboard(hits);
+      console.log("first fetch");
     };
     if (dashboardPosts.length === 0) fetchPosts();
   }, []);
@@ -29,7 +30,7 @@ const Blog = () => {
   //Update fetch number per page
   useEffect(() => {
     const fetchPosts = async () => {
-      const { hits } = await getPosts(currentSelect, numberPage);
+      const { hits } = await getPosts(currentSelect.value, numberPage);
       addPostsToDashboard(hits);
     };
     if (numberPage !== 0) fetchPosts();
@@ -38,18 +39,19 @@ const Blog = () => {
   //Update select
   useEffect(() => {
     const fetchPosts = async () => {
-      const { hits } = await getPosts(currentSelect);
-      const filterPosts = hits.filter(
+      const { hits } = await getPosts(currentSelect.value);
+      const filterPosts = await hits.filter(
         ({ story_title }) => story_title !== null
       );
       setDashboardPosts(filterPosts);
+      console.log("update select");
     };
     if (currentSelect !== "") fetchPosts();
   }, [currentSelect]);
 
   return (
     <>
-      <Select />
+      <CustomSelect />
       <section className="blog py-5">
         <div className="container">
           <Suspense fallback={<Loading />}>

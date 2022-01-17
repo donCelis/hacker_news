@@ -26,6 +26,7 @@ const Post = ({ ...props }) => {
 
   //fuction add like or remove like
   const handleChangeFavs = (story_id) => {
+    console.log("ok");
     isFav
       ? (removePostsFromFavs(story_id), setIsFav(false))
       : (addPostsToFavs(props), setIsFav(true));
