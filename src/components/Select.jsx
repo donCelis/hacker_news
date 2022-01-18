@@ -2,11 +2,12 @@ import { useContext, useState } from "react";
 import { PostsContext } from "../context/PostsContext";
 import logo_react from "../assets/react-icon/image-140.png";
 
+
 import Select from "react-select";
+import "../styles/components/_select.scss";
 
 const CustomSelect = () => {
   const { currentSelect, setCurrentSelect } = useContext(PostsContext);
-  //const [selectedOption, setSelectedOption] = useState(null);
 
   const options = [
     { value: "reactjs", label: "React Js" },
@@ -23,6 +24,8 @@ const CustomSelect = () => {
   return (
     <div className="container">
       <Select
+        classNamePrefix="custom-select"
+        className="custom-select-container"
         placeholder="Select your news"
         value={currentSelect}
         onChange={handleSelect}

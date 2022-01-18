@@ -39,8 +39,8 @@ export const ContextProvider = ({ children }) => {
 
   // Setting localstorage values at the beggining
   useEffect(() => {
-    const currentSelect = localStorage.hackerNewsCurrentSelect;
-    if (currentSelect) setCurrentSelect(JSON.parse(currentSelect));
+    const currentSelectCache = localStorage.hackerNewsCurrentSelect;
+    if (currentSelectCache) setCurrentSelect(JSON.parse(currentSelectCache));
 
     const currentFavs = localStorage.hackerNewsFavs;
     if (currentFavs) setFavs(JSON.parse(currentFavs));

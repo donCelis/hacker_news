@@ -1,8 +1,11 @@
-import { useEffect, useState, useContext, lazy, Suspense } from "react";
+import { useEffect, useState, useContext, lazy, Suspense, useRef } from "react";
 import { PostsContext } from "../context/PostsContext";
 import { getPosts } from "../services/getPosts";
 import Loading from "../components/Loading";
 import CustomSelect from "../components/Select";
+//import Post from "../components/Post";
+
+import useIntersection from "../hooks/useIntersection";
 
 const Post = lazy(() => import("../components/Post"));
 
@@ -15,38 +18,60 @@ const Blog = () => {
     addPostsToDashboard,
   } = useContext(PostsContext);
 
-  const [numberPage, setNumberPage] = useState(0);
-
   //First fetch
   useEffect(() => {
     const fetchPosts = async () => {
       const { hits } = await getPosts(currentSelect.value);
       addPostsToDashboard(hits);
-      console.log("first fetch");
     };
     if (dashboardPosts.length === 0) fetchPosts();
   }, []);
 
   //Update fetch number per page
+  const [numberPage, setNumberPage] = useState(0);
+  const [oldNumberPage, setOldNumberpage] = useState(numberPage);
+  const refLoading = useRef(null);
+  const intersectionOptions = {
+    cb: () => setNumberPage((oldNumber) => oldNumber + 1),
+    options: {
+      threshold: 1,
+      rootMargin: "12px",
+      root: null,
+    },
+  };
+  const { isIntersecting } = useIntersection(
+    intersectionOptions,
+    refLoading.current
+  );
+
   useEffect(() => {
     const fetchPosts = async () => {
+      console.log(numberPage);
       const { hits } = await getPosts(currentSelect.value, numberPage);
       addPostsToDashboard(hits);
     };
-    if (numberPage !== 0) fetchPosts();
-  }, [numberPage]);
+    if (isIntersecting && oldNumberPage !== numberPage) {
+      setOldNumberpage(numberPage);
+      fetchPosts();
+    }
+  }, [numberPage, isIntersecting]);
 
   //Update select
+  const [oldSelect, setOldSelect] = useState(currentSelect);
+
   useEffect(() => {
     const fetchPosts = async () => {
       const { hits } = await getPosts(currentSelect.value);
-      const filterPosts = await hits.filter(
+      const filterPosts = hits.filter(
         ({ story_title }) => story_title !== null
       );
       setDashboardPosts(filterPosts);
-      console.log("update select");
     };
-    if (currentSelect !== "") fetchPosts();
+    if (oldSelect.value !== currentSelect.value) {
+      setOldSelect(currentSelect);
+      fetchPosts();
+      setNumberPage(0);
+    }
   }, [currentSelect]);
 
   return (
@@ -56,12 +81,18 @@ const Blog = () => {
         <div className="container">
           <Suspense fallback={<Loading />}>
             <ul className="row gx-5 gy-4">
-              {dashboardPosts.map((post) => (
-                <li key={post.objectID} className="col-md-12 col-lg-6">
+              {dashboardPosts.map((post, i) => (
+                <li
+                  key={`${post.objectID}_${post.author}_${i}`}
+                  className="col-md-12 col-lg-6"
+                >
                   <Post {...post} />
                 </li>
               ))}
             </ul>
+            <div ref={refLoading} style={{ height: "20px" }}>
+              <Loading />
+            </div>
           </Suspense>
         </div>
       </section>
