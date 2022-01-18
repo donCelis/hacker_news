@@ -7,7 +7,7 @@ import icon_time from "../assets/icon-time.svg";
 import icon_favorite_border from "../assets/icon-favorite-border.svg";
 import icon_favorite_fill from "../assets/icon-favorite-fill.svg";
 
-import TimeAgo from "../tools/timeAGo";
+import TimeAgo from "../tools/TimeAgo";
 
 const Post = ({ ...props }) => {
   let { author, story_title, story_url, created_at, story_id } = props;
