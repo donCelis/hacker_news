@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 
-const timeAgo = (oldDate) => {
+const TimeAgo = (oldDate) => {
   const toDay = new Date();
   const convertCreated_ad = new Date(oldDate);
   const options = {
@@ -11,4 +11,4 @@ const timeAgo = (oldDate) => {
   return compareDate;
 };
 
-export default timeAgo;
+export default TimeAgo;
