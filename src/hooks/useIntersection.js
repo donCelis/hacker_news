@@ -9,7 +9,7 @@ const useIntersection = (data, target) => {
       if (entry.isIntersecting) {
         setIsIntersecting(true);
         if (
-          entry.intersectionRatio >= data.options ? data.options.threshold : 0.3
+          entry.intersectionRatio >= data.options ? data.options.threshold : 0.5
         ) {
           data.cb();
         }

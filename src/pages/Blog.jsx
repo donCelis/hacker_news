@@ -1,13 +1,16 @@
 import { useEffect, useState, useContext, lazy, Suspense, useRef } from "react";
 import { PostsContext } from "../context/PostsContext";
+
+//fetching data
 import { getPosts } from "../services/getPosts";
+
+//Components
 import Loading from "../components/Loading";
 import CustomSelect from "../components/Select";
-//import Post from "../components/Post";
-
-import useIntersection from "../hooks/useIntersection";
-
 const Post = lazy(() => import("../components/Post"));
+
+//hooks
+import useIntersection from "../hooks/useIntersection";
 
 const Blog = () => {
   //context
@@ -18,16 +21,7 @@ const Blog = () => {
     addPostsToDashboard,
   } = useContext(PostsContext);
 
-  //First fetch
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const { hits } = await getPosts(currentSelect.value);
-      addPostsToDashboard(hits);
-    };
-    if (dashboardPosts.length === 0) fetchPosts();
-  }, []);
-
-  //Update fetch number per page
+  //Infinite Scroll
   const [numberPage, setNumberPage] = useState(0);
   const [oldNumberPage, setOldNumberpage] = useState(numberPage);
   const refLoading = useRef(null);
@@ -46,9 +40,9 @@ const Blog = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      console.log(numberPage);
       const { hits } = await getPosts(currentSelect.value, numberPage);
       addPostsToDashboard(hits);
+      console.log("infinite scroll");
     };
     if (isIntersecting && oldNumberPage !== numberPage) {
       setOldNumberpage(numberPage);
@@ -57,20 +51,19 @@ const Blog = () => {
   }, [numberPage, isIntersecting]);
 
   //Update select
-  const [oldSelect, setOldSelect] = useState(currentSelect);
-
   useEffect(() => {
     const fetchPosts = async () => {
-      const { hits } = await getPosts(currentSelect.value);
+      const { hits } = await getPosts(currentSelect.value, 0);
       const filterPosts = hits.filter(
         ({ story_title }) => story_title !== null
       );
       setDashboardPosts(filterPosts);
+      console.log("update select");
     };
-    if (oldSelect.value !== currentSelect.value) {
-      setOldSelect(currentSelect);
+    if (currentSelect.value) {
       fetchPosts();
       setNumberPage(0);
+      setOldNumberpage(0);
     }
   }, [currentSelect]);
 
@@ -80,7 +73,7 @@ const Blog = () => {
       <section className="blog py-5">
         <div className="container">
           <Suspense fallback={<Loading />}>
-            <ul className="row gx-5 gy-4">
+            <ul className="row gx-0 gx-lg-5 gy-4">
               {dashboardPosts.map((post, i) => (
                 <li
                   key={`${post.objectID}_${post.author}_${i}`}
@@ -90,7 +83,7 @@ const Blog = () => {
                 </li>
               ))}
             </ul>
-            <div ref={refLoading} style={{ height: "20px" }}>
+            <div ref={refLoading} style={{ height: "32px" }}>
               <Loading />
             </div>
           </Suspense>

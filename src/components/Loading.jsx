@@ -1,11 +1,6 @@
-{
-  /* <div className="container text-center">
-  <span>...loading</span>
-</div> */
-}
 const Loading = () => {
   return (
-    <div className="text-center">
+    <div className="text-center pt-5">
       <div className="spinner-border text-primary" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
