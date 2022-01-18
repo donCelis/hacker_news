@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "date-fns";
+import { formatDistance } from "date-fns";
 
 const TimeAgo = (oldDate) => {
   const toDay = new Date();
@@ -6,7 +6,7 @@ const TimeAgo = (oldDate) => {
   const options = {
     addSuffix: true,
   };
-  const compareDate = formatDistanceToNow(convertCreated_ad, toDay, options);
+  const compareDate = formatDistance(convertCreated_ad, toDay, options);
 
   return compareDate;
 };
