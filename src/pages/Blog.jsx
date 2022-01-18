@@ -42,8 +42,8 @@ const Blog = () => {
     const fetchPosts = async () => {
       const { hits } = await getPosts(currentSelect.value, numberPage);
       addPostsToDashboard(hits);
-      console.log("infinite scroll");
-      console.log(numberPage);
+      //console.log("infinite scroll");
+      //console.log(numberPage);
     };
     if (isIntersecting && oldNumberPage !== numberPage) {
       setOldNumberpage(numberPage);
@@ -61,7 +61,7 @@ const Blog = () => {
         ({ story_title }) => story_title !== null
       );
       setDashboardPosts(filterPosts);
-      console.log("update select");
+      //console.log("update select");
     };
     if (oldSelect.value !== currentSelect.value) {
       setOldSelect(currentSelect);
