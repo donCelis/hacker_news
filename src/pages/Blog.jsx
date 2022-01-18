@@ -43,6 +43,7 @@ const Blog = () => {
       const { hits } = await getPosts(currentSelect.value, numberPage);
       addPostsToDashboard(hits);
       console.log("infinite scroll");
+      console.log(numberPage);
     };
     if (isIntersecting && oldNumberPage !== numberPage) {
       setOldNumberpage(numberPage);
@@ -51,19 +52,21 @@ const Blog = () => {
   }, [numberPage, isIntersecting]);
 
   //Update select
+  const [oldSelect, setOldSelect] = useState(currentSelect);
+
   useEffect(() => {
     const fetchPosts = async () => {
-      const { hits } = await getPosts(currentSelect.value, 0);
+      const { hits } = await getPosts(currentSelect.value);
       const filterPosts = hits.filter(
         ({ story_title }) => story_title !== null
       );
       setDashboardPosts(filterPosts);
       console.log("update select");
     };
-    if (currentSelect.value) {
-      fetchPosts();
+    if (oldSelect.value !== currentSelect.value) {
+      setOldSelect(currentSelect);
       setNumberPage(0);
-      setOldNumberpage(0);
+      fetchPosts();
     }
   }, [currentSelect]);
 

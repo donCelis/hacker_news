@@ -7,10 +7,12 @@ import icon_time from "../assets/icon-time.svg";
 import icon_favorite_border from "../assets/icon-favorite-border.svg";
 import icon_favorite_fill from "../assets/icon-favorite-fill.svg";
 
-import TimeAgo from "../utils/TimeAgo";
+import TimeAgo from "../tools/timeAGo";
 
 const Post = ({ ...props }) => {
   let { author, story_title, story_url, created_at, story_id } = props;
+
+  const compareCreatedAt = TimeAgo(created_at);
 
   //context
   const { favs, addPostsToFavs, removePostsFromFavs } =
@@ -43,7 +45,7 @@ const Post = ({ ...props }) => {
             <img src={icon_time} alt="icon time" />
           </figure>
           <time dateTime={created_at}>
-            {TimeAgo(created_at)} by {author}
+            {compareCreatedAt} by {author}
           </time>
         </small>
         <p>{story_title}</p>
