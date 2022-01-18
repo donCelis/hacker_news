@@ -1,7 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { PostsContext } from "../context/PostsContext";
-import logo_react from "../assets/react-icon/image-140.png";
-
 
 import Select from "react-select";
 import "../styles/components/_select.scss";
