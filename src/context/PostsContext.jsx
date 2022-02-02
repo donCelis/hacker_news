@@ -1,50 +1,51 @@
-import { createContext, useState, useEffect } from "react";
+/* eslint-disable camelcase, no-undef */
+import { createContext, useState, useEffect } from 'react'
 
-export const PostsContext = createContext({});
+export const PostsContext = createContext({})
 
 export const ContextProvider = ({ children }) => {
   /* Select */
-  const [currentSelect, setCurrentSelect] = useState("");
+  const [currentSelect, setCurrentSelect] = useState('')
 
   /* Favs */
-  const [favs, setFavs] = useState([]);
+  const [favs, setFavs] = useState([])
 
   const addPostsToFavs = (post) => {
     setFavs((state) => {
-      const newPostsFavs = [...state, post];
-      localStorage.hackerNewsFavs = JSON.stringify(newPostsFavs);
-      return newPostsFavs;
-    });
-  };
+      const newPostsFavs = [...state, post]
+      localStorage.hackerNewsFavs = JSON.stringify(newPostsFavs)
+      return newPostsFavs
+    })
+  }
 
   const removePostsFromFavs = (id) => {
     setFavs((state) => {
-      const filterPost = state.filter((post) => post.story_id !== id);
-      localStorage.hackerNewsFavs = JSON.stringify(filterPost);
-      return filterPost;
-    });
-  };
+      const filterPost = state.filter((post) => post.story_id !== id)
+      localStorage.hackerNewsFavs = JSON.stringify(filterPost)
+      return filterPost
+    })
+  }
 
   /* Posts */
-  const [dashboardPosts, setDashboardPosts] = useState([]);
+  const [dashboardPosts, setDashboardPosts] = useState([])
 
   const addPostsToDashboard = (posts) => {
-    const filterPosts = posts.filter(({ story_title }) => story_title !== null);
+    const filterPosts = posts.filter(({ story_title }) => story_title !== null)
 
     setDashboardPosts((state) => {
-      const finalPosts = [...state, ...filterPosts];
-      return finalPosts;
-    });
-  };
+      const finalPosts = [...state, ...filterPosts]
+      return finalPosts
+    })
+  }
 
   // Setting localstorage values at the beggining
   useEffect(() => {
-    const currentSelectCache = localStorage.hackerNewsCurrentSelect;
-    if (currentSelectCache) setCurrentSelect(JSON.parse(currentSelectCache));
+    const currentSelectCache = localStorage.hackerNewsCurrentSelect
+    if (currentSelectCache) setCurrentSelect(JSON.parse(currentSelectCache))
 
-    const currentFavs = localStorage.hackerNewsFavs;
-    if (currentFavs) setFavs(JSON.parse(currentFavs));
-  }, []);
+    const currentFavs = localStorage.hackerNewsFavs
+    if (currentFavs) setFavs(JSON.parse(currentFavs))
+  }, [])
 
   const initialState = {
     /* select */
@@ -58,12 +59,12 @@ export const ContextProvider = ({ children }) => {
     /* posts */
     dashboardPosts,
     setDashboardPosts,
-    addPostsToDashboard,
-  };
+    addPostsToDashboard
+  }
 
   return (
     <PostsContext.Provider value={initialState}>
       {children}
     </PostsContext.Provider>
-  );
-};
+  )
+}

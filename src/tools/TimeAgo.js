@@ -1,14 +1,14 @@
-import { formatDistance } from "date-fns";
+import { formatDistance } from 'date-fns'
 
 const TimeAgo = (oldDate) => {
-  const toDay = new Date();
-  const convertCreated_ad = new Date(oldDate);
+  const toDay = new Date()
+  const convertCreatedAd = new Date(oldDate)
   const options = {
-    addSuffix: true,
-  };
-  const compareDate = formatDistance(convertCreated_ad, toDay, options);
+    addSuffix: true
+  }
+  const compareDate = formatDistance(convertCreatedAd, toDay, options)
 
-  return compareDate;
-};
+  return compareDate
+}
 
-export default TimeAgo;
+export default TimeAgo

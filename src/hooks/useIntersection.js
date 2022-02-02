@@ -1,35 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 const useIntersection = (data, target) => {
-  const [observer, setObserver] = useState(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [observer, setObserver] = useState(null)
+  const [isIntersecting, setIsIntersecting] = useState(false)
 
   const callBackObserver = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        setIsIntersecting(true);
+        setIsIntersecting(true)
         if (
           entry.intersectionRatio >= data.options ? data.options.threshold : 0.5
         ) {
-          data.cb();
+          data.cb()
         }
-        return null;
+        return null
       } else {
-        setIsIntersecting(false);
+        setIsIntersecting(false)
       }
-    });
-  };
+    })
+  }
 
   useEffect(() => {
-    const observer = new IntersectionObserver(callBackObserver, data.options);
-    setObserver(observer);
-    target && observer.observe(target);
-  }, [target]);
+    const observer = new IntersectionObserver(callBackObserver, data.options) // eslint-disable-line no-undef
+    setObserver(observer)
+    target && observer.observe(target)
+  }, [target])
 
   return {
     observer,
-    isIntersecting,
-  };
-};
+    isIntersecting
+  }
+}
 
-export default useIntersection;
+export default useIntersection

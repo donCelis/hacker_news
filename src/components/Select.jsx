@@ -1,30 +1,30 @@
-import { useContext } from "react";
-import { PostsContext } from "../context/PostsContext";
+import { useContext } from 'react'
+import { PostsContext } from '../context/PostsContext'
 
-import Select from "react-select";
-import "../styles/components/_select.scss";
+import Select from 'react-select'
+import '../styles/components/_select.scss'
 
 const CustomSelect = () => {
-  const { currentSelect, setCurrentSelect } = useContext(PostsContext);
+  const { currentSelect, setCurrentSelect } = useContext(PostsContext)
 
   const options = [
-    { value: "reactjs", label: "React Js" },
-    { value: "angular", label: "Angular" },
-    { value: "vuejs", label: "Vue Js" },
-  ];
+    { value: 'reactjs', label: 'React Js' },
+    { value: 'angular', label: 'Angular' },
+    { value: 'vuejs', label: 'Vue Js' }
+  ]
 
-  //change select
+  // change select
   const handleSelect = (ev) => {
-    setCurrentSelect(ev);
-    localStorage.hackerNewsCurrentSelect = JSON.stringify(ev);
-  };
+    setCurrentSelect(ev)
+    localStorage.hackerNewsCurrentSelect = JSON.stringify(ev) // eslint-disable-line no-undef
+  }
 
   return (
-    <div className="container">
+    <div className='container'>
       <Select
-        classNamePrefix="custom-select"
-        className="custom-select-container"
-        placeholder="Select your news"
+        classNamePrefix='custom-select'
+        className='custom-select-container'
+        placeholder='Select your news'
         value={currentSelect}
         onChange={handleSelect}
         options={options}
@@ -33,13 +33,13 @@ const CustomSelect = () => {
           ...theme,
           colors: {
             ...theme.colors,
-            primary: "#1797ff",
-            primary25: "#eaeaea",
-          },
+            primary: '#1797ff',
+            primary25: '#eaeaea'
+          }
         })}
       />
     </div>
-  );
-};
+  )
+}
 
-export default CustomSelect;
+export default CustomSelect

@@ -1,48 +1,53 @@
-import "../styles/components/_post.scss";
+/* eslint-disable camelcase */
+import '../styles/components/_post.scss'
 
-import { useContext, useEffect, useState } from "react";
-import { PostsContext } from "../context/PostsContext";
+import { useContext, useEffect, useState } from 'react'
+import { PostsContext } from '../context/PostsContext'
 
-import icon_time from "../assets/icon-time.svg";
-import icon_favorite_border from "../assets/icon-favorite-border.svg";
-import icon_favorite_fill from "../assets/icon-favorite-fill.svg";
+import iconTime from '../assets/icon-time.svg'
+import iconFavoriteBorder from '../assets/icon-favorite-border.svg'
+import iconFavoriteFill from '../assets/icon-favorite-fill.svg'
 
-import TimeAgo from "../tools/TimeAgo";
+import TimeAgo from '../tools/TimeAgo'
 
 const Post = ({ ...props }) => {
-  let { author, story_title, story_url, created_at, story_id } = props;
+  const { author, story_title, story_url, created_at, story_id } = props
 
-  const compareCreatedAt = TimeAgo(created_at);
+  const compareCreatedAt = TimeAgo(created_at)
 
-  //context
+  // context
   const { favs, addPostsToFavs, removePostsFromFavs } =
-    useContext(PostsContext);
+    useContext(PostsContext)
 
-  const [isFav, setIsFav] = useState(false);
+  const [isFav, setIsFav] = useState(false)
 
-  //verify state to fav
+  // verify state to fav
   useEffect(() => {
-    const state = favs.find((fav) => fav.story_id === story_id);
-    setIsFav(state);
-  }, []);
+    const state = favs.find((fav) => fav.story_id === story_id)
+    setIsFav(state)
+  }, [])
 
-  //fuction add like or remove like
+  // fuction add like or remove like
   const handleChangeFavs = (story_id) => {
-    isFav
-      ? (removePostsFromFavs(story_id), setIsFav(false))
-      : (addPostsToFavs(props), setIsFav(true));
-  };
+    if (isFav) {
+      removePostsFromFavs(story_id)
+      setIsFav(false)
+    } else {
+      addPostsToFavs(props)
+      setIsFav(true)
+    }
+  }
 
   return (
-    <article className="post">
+    <article className='post'>
       <a
-        target="_blank"
-        href={story_url ? story_url : "#"}
-        className="post-info"
+        target='_blank'
+        href={story_url || '#'}
+        className='post-info' rel='noreferrer'
       >
-        <small className="d-flex align-items-center">
-          <figure className="d-inline-flex me-2">
-            <img src={icon_time} alt="icon time" />
+        <small className='d-flex align-items-center'>
+          <figure className='d-inline-flex me-2'>
+            <img src={iconTime} alt='icon time' />
           </figure>
           <time dateTime={created_at}>
             {compareCreatedAt} by {author}
@@ -50,16 +55,16 @@ const Post = ({ ...props }) => {
         </small>
         <p>{story_title}</p>
       </a>
-      <button className="post-icon" onClick={() => handleChangeFavs(story_id)}>
+      <button className='post-icon' onClick={() => handleChangeFavs(story_id)}>
         <figure>
           <img
-            src={isFav ? icon_favorite_fill : icon_favorite_border}
-            alt="icon favorite"
+            src={isFav ? iconFavoriteFill : iconFavoriteBorder}
+            alt='icon favorite'
           />
         </figure>
       </button>
     </article>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

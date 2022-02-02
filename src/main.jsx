@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-//styles
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/main.scss";
+// styles
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/main.scss'
 
-//components
-import Header from "./components/Header";
+// components
+import Header from './components/Header'
 
-import Routes from "./routes";
+import Routes from './routes'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,5 +17,5 @@ ReactDOM.render(
       <Routes />
     </>
   </React.StrictMode>,
-  document.getElementById("root")
-);
+  document.getElementById('root')
+)
