@@ -1,4 +1,3 @@
-/* eslint-disable camelcase, no-undef */
 import { createContext, useState, useEffect } from 'react'
 
 export const PostsContext = createContext({})
@@ -13,7 +12,7 @@ export const ContextProvider = ({ children }) => {
   const addPostsToFavs = (post) => {
     setFavs((state) => {
       const newPostsFavs = [...state, post]
-      localStorage.hackerNewsFavs = JSON.stringify(newPostsFavs)
+      window.localStorage.hackerNewsFavs = JSON.stringify(newPostsFavs)
       return newPostsFavs
     })
   }
@@ -21,7 +20,7 @@ export const ContextProvider = ({ children }) => {
   const removePostsFromFavs = (id) => {
     setFavs((state) => {
       const filterPost = state.filter((post) => post.story_id !== id)
-      localStorage.hackerNewsFavs = JSON.stringify(filterPost)
+      window.localStorage.hackerNewsFavs = JSON.stringify(filterPost)
       return filterPost
     })
   }

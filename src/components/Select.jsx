@@ -16,7 +16,7 @@ const CustomSelect = () => {
   // change select
   const handleSelect = (ev) => {
     setCurrentSelect(ev)
-    localStorage.hackerNewsCurrentSelect = JSON.stringify(ev) // eslint-disable-line no-undef
+    window.localStorage.hackerNewsCurrentSelect = JSON.stringify(ev)
   }
 
   return (
