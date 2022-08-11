@@ -5,7 +5,7 @@ import Blog from '../pages/Blog'
 import Favs from '../pages/Favs'
 
 const Router = () => (
-  <BrowserRouter basename='https://hopeful-wing-f00295.netlify.app'>
+  <BrowserRouter basename='https://hopeful-wing-f00295.netlify.app/'>
     <Layout>
       <Routes>
         <Route path='/' element={<Blog />} />
