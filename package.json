@@ -1,6 +1,7 @@
 {
   "name": "technical_test_reign",
   "version": "1.0.0",
+  "homepage": ".",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
