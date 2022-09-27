@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {createRoot} from 'react-dom/client'
 
 // styles
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -10,12 +10,9 @@ import Header from './components/Header'
 
 import Routes from './routes'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <>
-      <Header />
-      <Routes />
-    </>
-  </React.StrictMode>,
-  document.getElementById('root')
+createRoot(document.getElementById('root')).render(
+  <>
+    <Header />
+    <Routes />
+  </>
 )
