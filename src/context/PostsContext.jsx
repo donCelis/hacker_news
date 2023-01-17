@@ -39,10 +39,10 @@ export const ContextProvider = ({ children }) => {
 
   // Setting localstorage values at the beggining
   useEffect(() => {
-    const currentSelectCache = localStorage.hackerNewsCurrentSelect
+    const currentSelectCache = window.localStorage.hackerNewsCurrentSelect
     if (currentSelectCache) setCurrentSelect(JSON.parse(currentSelectCache))
 
-    const currentFavs = localStorage.hackerNewsFavs
+    const currentFavs = window.localStorage.hackerNewsFavs
     if (currentFavs) setFavs(JSON.parse(currentFavs))
   }, [])
 
