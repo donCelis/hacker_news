@@ -1,11 +1,10 @@
-import { useContext } from 'react'
-import { PostsContext } from '../context/PostsContext'
+import { useProvider } from '../context'
 
 import Select from 'react-select'
 import '../styles/components/_select.scss'
 
 const CustomSelect = () => {
-  const { currentSelect, setCurrentSelect } = useContext(PostsContext)
+  const { currentSelect, setCurrentSelect } = useProvider()
 
   const options = [
     { value: 'reactjs', label: 'React Js' },

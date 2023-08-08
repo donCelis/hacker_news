@@ -1,6 +1,6 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useContext } from 'react'
 
-export const PostsContext = createContext({})
+const PostsContext = createContext({})
 
 export const ContextProvider = ({ children }) => {
   /* Select */
@@ -29,6 +29,7 @@ export const ContextProvider = ({ children }) => {
   const [dashboardPosts, setDashboardPosts] = useState([])
 
   const addPostsToDashboard = (posts) => {
+    // eslint-disable-next-line camelcase
     const filterPosts = posts.filter(({ story_title }) => story_title !== null)
 
     setDashboardPosts((state) => {
@@ -52,7 +53,6 @@ export const ContextProvider = ({ children }) => {
     setCurrentSelect,
     /* favs */
     favs,
-    setFavs,
     addPostsToFavs,
     removePostsFromFavs,
     /* posts */
@@ -66,4 +66,12 @@ export const ContextProvider = ({ children }) => {
       {children}
     </PostsContext.Provider>
   )
+}
+
+export const useProvider = () => {
+  const context = useContext(PostsContext)
+  if (!context) {
+    throw new Error('useMyContext debe ser usado dentro de un proveedor MyContext')
+  }
+  return context
 }

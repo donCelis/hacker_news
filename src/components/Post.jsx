@@ -1,25 +1,23 @@
 /* eslint-disable camelcase */
 import '../styles/components/_post.scss'
 
-import { useContext, useEffect, useState } from 'react'
-import { PostsContext } from '../context/PostsContext'
+import { useEffect, useState } from 'react'
 
 import iconTime from '../assets/icon-time.svg'
 import iconFavoriteBorder from '../assets/icon-favorite-border.svg'
 import iconFavoriteFill from '../assets/icon-favorite-fill.svg'
 
 import TimeAgo from '../tools/TimeAgo'
+import { useProvider } from '../context'
 
-const Post = ({ ...props }) => {
+const Post = ({ favs = [], ...props }) => {
   const { author, story_title, story_url, created_at, story_id } = props
 
   const compareCreatedAt = TimeAgo(created_at)
 
-  // context
-  const { favs, addPostsToFavs, removePostsFromFavs } =
-    useContext(PostsContext)
-
   const [isFav, setIsFav] = useState(false)
+
+  const { removePostsFromFavs, addPostsToFavs } = useProvider()
 
   // verify state to fav
   useEffect(() => {

@@ -1,12 +1,14 @@
-import { useContext, lazy, Suspense } from 'react'
-import { PostsContext } from '../context/PostsContext'
+import { lazy, Suspense } from 'react'
+import { useProvider } from '../context'
 import Loading from '../components/Loading'
 
 const Post = lazy(() => import('../components/Post'))
 
 function Favs () {
   // context
-  const { favs } = useContext(PostsContext)
+  const { favs } = useProvider()
+
+  console.log(favs)
 
   return (
     <section className='favs py-5'>

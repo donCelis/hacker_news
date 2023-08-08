@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext, lazy, Suspense, useRef } from 'react'
-import { PostsContext } from '../context/PostsContext'
+import { useEffect, useState, lazy, Suspense, useRef } from 'react'
+import { useProvider } from '../context'
 
 // fetching data
 import { getPosts } from '../services/getPosts'
@@ -19,7 +19,7 @@ const Blog = () => {
     dashboardPosts,
     setDashboardPosts,
     addPostsToDashboard
-  } = useContext(PostsContext)
+  } = useProvider()
 
   // Infinite Scroll
   const [numberPage, setNumberPage] = useState(0)
@@ -42,8 +42,6 @@ const Blog = () => {
     const fetchPosts = async () => {
       const { hits } = await getPosts(currentSelect.value, numberPage)
       addPostsToDashboard(hits)
-      // console.log("infinite scroll");
-      // console.log(numberPage);
     }
     if (isIntersecting && oldNumberPage !== numberPage) {
       setOldNumberpage(numberPage)
@@ -61,7 +59,6 @@ const Blog = () => {
         ({ story_title }) => story_title !== null // eslint-disable-line camelcase
       )
       setDashboardPosts(filterPosts)
-      // console.log("update select");
     }
     if (oldSelect.value !== currentSelect.value) {
       setOldSelect(currentSelect)

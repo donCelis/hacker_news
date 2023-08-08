@@ -1,8 +1,7 @@
 import '../styles/components/_tabs.scss'
 
-import { ContextProvider } from '../context/PostsContext'
-
 import Tabs from '../components/Tabs'
+import { ContextProvider } from '../context'
 
 const Layout = ({ children }) => (
   <ContextProvider>
